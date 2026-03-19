@@ -1,17 +1,21 @@
 from micrograd.engine import Value
 
-# Simulate "normal" behavior
-a = Value(2.0)
-b = Value(3.0)
-c = a * b
-c.backward()
+def run_case(name, x_val, y_val):
+    print(f"\n--- {name} ---")
 
-print("Normal run complete")
+    x = Value(x_val)
+    y = Value(y_val)
+    z = x * y
+    z.backward()
 
-# Simulate "unsafe / abnormal" behavior
-x = Value(100.0)
-y = Value(200.0)
-z = x * y
-z.backward()
+    # Simple "firewall logic"
+    if abs(z.data) > 1000:
+        print("🚨 Agent Firewall TRIGGERED: abnormal output:", z.data)
+    else:
+        print("✅ Safe execution:", z.data)
 
-print("Abnormal run complete")
+# Normal case
+run_case("Normal Case", 2.0, 3.0)
+
+# Abnormal case
+run_case("Abnormal Case", 100.0, 200.0)
