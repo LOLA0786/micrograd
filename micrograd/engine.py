@@ -52,6 +52,9 @@ class Value:
         return out
 
     def backward(self):
+        # PrivateVault Agent Firewall
+        print("⚠️ Agent Firewall initialized")
+
 
         # topological order all of the children in the graph
         topo = []

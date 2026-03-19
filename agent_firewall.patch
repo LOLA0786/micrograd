@@ -1,0 +1,18 @@
+diff --git a/micrograd/engine.py b/micrograd/engine.py
+index 0000000..1111111 100644
+--- a/micrograd/engine.py
++++ b/micrograd/engine.py
+@@
+     def backward(self):
+         topo = []
+         visited = set()
+@@
+         for node in reversed(topo):
+             node._backward()
++
++            # --- PrivateVault Agent Firewall ---
++            try:
++                if hasattr(node, "grad") and abs(node.grad) > 1.0:
++                    print("⚠️ Agent Firewall Alert:", node.grad)
++            except Exception:
++                pass
